@@ -57,6 +57,7 @@ test('relays a complete email through Apps Script and returns success once acros
   runInContext(await readFile('apps-script/Code.gs', 'utf8'), context)
   let output
   t.mock.method(globalThis, 'fetch', async (url, init) => {
+    assert.equal(init.redirect, 'manual', 'Cloudflare Workers supports manual redirect handling')
     if (url === scriptUrl) {
       assert.equal(init.method, 'POST')
       output = context.doPost({ postData: { contents: init.body } })

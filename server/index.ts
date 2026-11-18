@@ -72,7 +72,7 @@ async function sendReport(request: Request, url: URL, env: Env) {
     if (result.status === 302 || result.status === 303) {
       const location = result.headers.get('Location')
       if (!location || new URL(location).origin !== 'https://script.googleusercontent.com') return reply('unavailable', 503)
-      result = await fetch(location, { redirect: 'error', signal })
+      result = await fetch(location, { redirect: 'manual', signal })
     }
     if (!result.ok || !result.headers.get('Content-Type')?.startsWith('application/json')) return reply('pending', 502)
     const { status } = await result.json() as { status?: keyof typeof deliveryCodes | 'unavailable' }
