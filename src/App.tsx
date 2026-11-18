@@ -8,7 +8,7 @@ import ReportForm from './ReportForm'
 
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`
 const process = [
-  { title: 'Raporto', detail: 'Përshkruaj çfarë ndodhi dhe zgjidh si ta ndash raportin me shkollën.', icon: FilePenLine },
+  { title: 'Raporto', detail: 'Plotëso formularin, kontrollo të dhënat dhe dërgo raportin te shërbimi psikosocial.', icon: FilePenLine },
   { title: 'Shqyrtohet', detail: 'Pasi të marrë raportin, personeli përgjegjës mund të shqyrtojë situatën.', icon: ClipboardCheck },
   { title: 'Veprohet', detail: 'Shkolla mund të ndërmarrë hapa për të trajtuar problemin dhe për të ofruar mbështetje.', icon: HeartHandshake },
 ]
@@ -195,11 +195,11 @@ export default function App() {
             <div className="report-intro" data-reveal>
               <span className="tile-icon"><FilePenLine size={27} /></span>
               <h2 id="report-title">Raporto një<br /> problem.</h2>
-              <p>Trego çfarë ndodhi me fjalët e tua. Mund ta përgatitësh raportin për veten ose për dikë që ka nevojë për ndihmë.</p>
+              <p>Trego çfarë ndodhi me fjalët e tua. Mund të raportosh për veten ose për dikë që ka nevojë për ndihmë.</p>
               <ul className="report-promises">
                 <li><Check size={17} /> Katër hapa të thjeshtë</li>
-                <li><Check size={17} /> Mundësi për ta përgatitur pa emër</li>
-                <li><Check size={17} /> Ti vendos si ta ndash me shkollën</li>
+                <li><Check size={17} /> Rishikim para dërgimit</li>
+                <li><Check size={17} /> Dërgim te shërbimi psikosocial</li>
               </ul>
             </div>
             <ReportForm selection={selection} notify={notify} />

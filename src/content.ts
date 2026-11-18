@@ -2,6 +2,7 @@ import {
   BookOpen, Eye, FilePenLine, HandHeart, HeartHandshake, Laptop, LockKeyhole,
   MessageCircle, MessagesSquare, ShieldAlert, ShieldCheck, UserRoundMinus, UsersRound,
 } from 'lucide-react'
+import { categoryLabels } from './report'
 
 export const school = {
   name: 'Gjimnazi Kostandin Kristoforidhi',
@@ -20,22 +21,22 @@ export const navigation = [
 
 export const features = [
   { title: 'Siguri', description: 'Shpreh shqetësimet e tua dhe kërko ndihmë kur të duhet.', icon: ShieldCheck, color: 'blue' },
-  { title: 'Anonimitet', description: 'Mund ta përgatitësh raportin pa përfshirë të dhëna identifikuese.', icon: LockKeyhole, color: 'violet' },
+  { title: 'Privatësi', description: 'Formulari i dërgon raportet te shërbimi psikosocial i shkollës.', icon: LockKeyhole, color: 'violet' },
   { title: 'Mbështetje', description: 'Personat përgjegjës në shkollë mund ta shqyrtojnë rastin dhe të të mbështesin.', icon: HeartHandshake, color: 'green' },
 ]
 
 export const categories = [
-  { id: 'verbal', title: 'Bullizëm verbal', description: 'Fyerje, tallje, kërcënime ose komente poshtëruese.', icon: MessageCircle, color: 'blue' },
-  { id: 'fizik', title: 'Bullizëm fizik', description: 'Goditje, shtyrje ose dëmtim i sendeve personale.', icon: ShieldAlert, color: 'rose' },
-  { id: 'online', title: 'Cyberbullying', description: 'Ngacmime, kërcënime ose shpërndarje fotosh pa leje në internet.', icon: Laptop, color: 'violet' },
-  { id: 'perjashtim', title: 'Përjashtim nga grupi', description: 'Izolim i qëllimshëm nga grupet ose aktivitetet.', icon: UserRoundMinus, color: 'amber' },
-  { id: 'konflikte', title: 'Konflikte mes nxënësve', description: 'Mosmarrëveshje ose përplasje për të cilat nevojitet ndihmë.', icon: UsersRound, color: 'green' },
-  { id: 'mesuesit', title: 'Probleme me mësuesit', description: 'Sjellje ose situata me stafin që të shqetësojnë.', icon: MessagesSquare, color: 'sky' },
+  { id: 'verbal', title: categoryLabels.verbal, description: 'Fyerje, tallje, kërcënime ose komente poshtëruese.', icon: MessageCircle, color: 'blue' },
+  { id: 'fizik', title: categoryLabels.fizik, description: 'Goditje, shtyrje ose dëmtim i sendeve personale.', icon: ShieldAlert, color: 'rose' },
+  { id: 'online', title: categoryLabels.online, description: 'Ngacmime, kërcënime ose shpërndarje fotosh pa leje në internet.', icon: Laptop, color: 'violet' },
+  { id: 'perjashtim', title: categoryLabels.perjashtim, description: 'Izolim i qëllimshëm nga grupet ose aktivitetet.', icon: UserRoundMinus, color: 'amber' },
+  { id: 'konflikte', title: categoryLabels.konflikte, description: 'Mosmarrëveshje ose përplasje për të cilat nevojitet ndihmë.', icon: UsersRound, color: 'green' },
+  { id: 'mesuesit', title: categoryLabels.mesuesit, description: 'Sjellje ose situata me stafin që të shqetësojnë.', icon: MessagesSquare, color: 'sky' },
 ]
 
 export const additionalCategories = [
-  { id: 'diskriminim', title: 'Diskriminim', icon: ShieldAlert },
-  { id: 'tjeter', title: 'Problem tjetër', icon: FilePenLine },
+  { id: 'diskriminim', title: categoryLabels.diskriminim, icon: ShieldAlert },
+  { id: 'tjeter', title: categoryLabels.tjeter, icon: FilePenLine },
 ]
 
 export const articles = [

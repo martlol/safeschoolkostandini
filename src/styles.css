@@ -52,6 +52,7 @@ main:focus, h3[tabindex='-1']:focus { outline: none; }
 
 .button { min-height: 49px; padding: 0 19px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px; border: 1px solid transparent; font-size: .9rem; font-weight: 700; line-height: 1.25; transition: background-color .2s, border-color .2s, color .2s, transform .2s, box-shadow .2s; text-align: center; }
 .button:hover { transform: translateY(-2px); }
+.button:disabled { cursor: not-allowed; opacity: .68; transform: none; }
 .button-primary { color: white; background: var(--blue); box-shadow: 0 6px 14px #1768a526; }
 .button-primary:hover { background: var(--blue-hover); box-shadow: 0 8px 18px #1768a53d; }
 .button-outline { color: var(--navy); border-color: #cbdbea; background: white; }
@@ -121,7 +122,7 @@ main:focus, h3[tabindex='-1']:focus { outline: none; }
 .step-list li[aria-current] .step-marker { background: var(--blue); }
 .form-heading { margin-bottom: 17px; }
 .form-heading p { font-size: .79rem; color: var(--blue); font-weight: 750; margin-bottom: 5px; }
-.form-heading h3, .prepared-card h3 { font-size: clamp(1.32rem, 2.4vw, 1.85rem); letter-spacing: -.039em; line-height: 1.2; }
+.form-heading h3, .sent-card h3 { font-size: clamp(1.32rem, 2.4vw, 1.85rem); letter-spacing: -.039em; line-height: 1.2; }
 .form-group { border: 0; margin: 0; padding: 0; min-width: 0; }
 .form-group legend { padding: 0; }
 .form-options, .form-two { display: grid; gap: 9px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -141,23 +142,22 @@ main:focus, h3[tabindex='-1']:focus { outline: none; }
 .form-field input, .form-field textarea { display: block; width: 100%; min-width: 0; margin-top: 6px; padding: 10px 11px; background: #fafcff; border: 1px solid #cadbeb; border-radius: 8px; min-height: 44px; color: var(--navy); font-size: 1rem; font-weight: 450; }
 .form-field textarea { resize: vertical; }
 .form-field input[aria-invalid='true'], .form-field textarea[aria-invalid='true'] { border-color: #a33a45; }
-.optional, .field-hint { font-size: .76rem; color: var(--ink-soft); font-weight: 500; }
-.field-hint { display: block; margin-top: 5px; }
+.optional { font-size: .76rem; color: var(--ink-soft); font-weight: 500; }
 .field-error { display: block; color: #a32936; font-size: .78rem; font-weight: 650; margin-top: 6px; }
 .form-note { display: flex; align-items: flex-start; gap: 9px; padding: 11px; border-radius: 8px; color: #265578; background: #edf6ff; font-size: .81rem; line-height: 1.5; }
 .form-note svg { margin-top: 2px; }
-.form-actions, .prepared-footer { display: flex; gap: 10px; justify-content: space-between; margin-top: 21px; }
+.form-actions { display: flex; gap: 10px; justify-content: space-between; margin-top: 21px; }
 .form-actions .next-button { margin-left: auto; }
 .form-actions .button { min-height: 43px; }
 .review-details { display: grid; gap: 10px; margin: 0; }
 .review-details > div { padding: 9px 11px; border-radius: 8px; background: var(--page-blue); }
 .review-details dt { font-size: .74rem; font-weight: 720; color: var(--blue); }
 .review-details dd { margin: 3px 0 0; font-size: .88rem; white-space: pre-wrap; overflow-wrap: anywhere; }
-.prepared-card { display: grid; gap: 15px; }
-.prepared-card > p:not(.form-note) { line-height: 1.6; color: var(--ink-soft); }
-.prepared-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.prepared-actions .button { padding-inline: 11px; min-height: 43px; font-size: .8rem; }
-.prepared-footer { margin-top: 0; }
+.sent-card { display: grid; gap: 15px; }
+.sent-card p { line-height: 1.6; color: var(--ink-soft); }
+.sent-card .text-action { justify-self: start; }
+.delivery-error { background: #fdf1f3; color: #932636; border-radius: 8px; padding: 11px; font-size: .86rem; line-height: 1.5; }
+.availability-note { margin-bottom: 15px; }
 
 .process-grid { list-style: none; padding: 0; margin-block: 45px 0; text-align: center; position: relative; }
 .process-grid::before { content: ''; position: absolute; top: 35px; left: 16%; right: 16%; border-top: 2px dashed #bdd8ee; }
