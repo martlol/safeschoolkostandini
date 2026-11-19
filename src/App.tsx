@@ -137,6 +137,7 @@ export default function App() {
       <Header />
       <main id="permbajtja" tabIndex={-1}>
         <section id="kryefaqja" className="hero" aria-labelledby="hero-title">
+          <img className="hero-photo" src={asset('school-courtyard.jpg')} alt="" width="516" height="387" fetchPriority="high" />
           <div className="container hero-inner">
             <div className="hero-copy">
               <div className="school-label"><GraduationCap size={19} /> {school.name}</div>
@@ -147,10 +148,6 @@ export default function App() {
                 <a className="button button-outline" href="#rreth-nesh">Mëso më shumë <ArrowDown size={17} /></a>
               </div>
               <div className="hero-note"><ShieldCheck size={19} /> Një hap drejt një ambienti shkollor më të sigurt.</div>
-            </div>
-            <div className="hero-visual" aria-hidden="true">
-              <span className="hero-orbit orbit-one" /><span className="hero-orbit orbit-two" />
-              <img src={asset('safeschool-hero-illustration.png')} alt="" width="1448" height="1086" fetchPriority="high" />
             </div>
           </div>
         </section>
