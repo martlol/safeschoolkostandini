@@ -12,7 +12,7 @@ const env = { APPS_SCRIPT_URL: scriptUrl, APPS_SCRIPT_RELAY_KEY: relayKey }
 const id = '5b5db827-f3d2-48b7-a8f0-50060ebef59a'
 const report = {
   category: 'verbal', description: 'Përshkrim tërësisht fiktiv.', date: '2020-02-29', place: 'Vend prove', repeated: 'Jo',
-  firstName: 'Emër prove', lastName: 'Mbiemër prove', className: 'Klasa provë', teacher: 'Mësues prove', idNumber: 'ID-FIKTIV',
+  firstName: 'Emër prove', lastName: 'Mbiemër prove', className: 'Klasa provë', teacher: 'Mësues prove',
 }
 
 function request(fields = report, source = origin) {
@@ -23,7 +23,7 @@ function request(fields = report, source = origin) {
 }
 
 test('requires every identity field before forwarding and rejects cross-origin requests', async () => {
-  for (const field of ['firstName', 'lastName', 'className', 'teacher', 'idNumber']) {
+  for (const field of ['firstName', 'lastName', 'className', 'teacher']) {
     const response = await worker.fetch(request({ ...report, [field]: ' ' }), env)
     assert.equal(response.status, 400, field)
   }
@@ -75,15 +75,16 @@ test('relays a complete email through Apps Script and returns success once acros
 
   mailAvailable = true
   for (const attempt of [1, 2]) {
-    const response = await worker.fetch(request(), env)
+    const response = await worker.fetch(request({ ...report, idNumber: 'ID-FIKTIV' }), env)
     assert.equal(response.status, 200, `attempt ${attempt}`)
     assert.deepEqual(await response.json(), { status: 'sent' })
   }
   assert.equal(sent.length, 1)
   assert.equal(sent[0].to, 'sherbimipsikosocialkonstandink@gmail.com')
-  for (const value of [report.firstName, report.lastName, report.className, report.teacher, report.idNumber]) {
+  for (const value of [report.firstName, report.lastName, report.className, report.teacher]) {
     assert.ok(sent[0].body.includes(value))
   }
   assert.equal(receipts.get(`receipt:${id}`).split(':')[0], 'sent')
-  assert.ok(![...receipts.values()].some((value) => value.includes(report.idNumber)))
+  assert.doesNotMatch(sent[0].body, /ID-FIKTIV|kartës së identitetit/)
+  assert.ok(![...receipts.values()].some((value) => value.includes(report.description)))
 })

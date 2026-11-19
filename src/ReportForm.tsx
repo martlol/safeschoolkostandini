@@ -41,20 +41,11 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
   const [errors, setErrors] = useState<Errors>({})
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
-  const [available, setAvailable] = useState<boolean>()
   const [deliveryError, setDeliveryError] = useState('')
   const form = useRef<HTMLFormElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const requestId = useRef<string>(undefined)
   const inFlight = useRef(false)
-
-  useEffect(() => {
-    const controller = new AbortController()
-    fetch('/api/reports', { signal: controller.signal })
-      .then(async (response) => setAvailable(response.ok && (await response.json()).status === 'ready'))
-      .catch(() => { if (!controller.signal.aborted) setAvailable(false) })
-    return () => controller.abort()
-  }, [])
 
   useEffect(() => {
     if (!selection || inFlight.current) return
@@ -101,7 +92,6 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
       goTo(step + 1)
       return
     }
-    if (!available) return
     inFlight.current = true
     setSending(true)
     setDeliveryError('')
@@ -164,7 +154,6 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
         <p>Hapi {step + 1} nga {steps.length}</p>
         <h3 id="form-heading" ref={heading} tabIndex={-1}>{['Zgjidh llojin e raportit', 'Përshkruaj situatën', 'Plotëso të dhënat e tua', 'Rishiko raportin'][step]}</h3>
       </div>
-      {available === false && <p className="delivery-error availability-note" role="status">{deliveryErrors.unavailable}</p>}
 
       {step === 0 && (
         <fieldset className="form-group" aria-describedby={errors.category ? 'error-category' : undefined}>
@@ -209,10 +198,10 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
 
       {step === 2 && (
         <div className="form-fields">
-          <p className="form-note"><LockKeyhole size={17} /> Të pesë fushat janë të detyrueshme. Këto të dhëna dërgohen bashkë me raportin te shërbimi psikosocial.</p>
+          <p className="form-note"><LockKeyhole size={17} /> Të katër fushat janë të detyrueshme. Këto të dhëna dërgohen bashkë me raportin te shërbimi psikosocial.</p>
           <div className="form-two">
             {identityFields.map(({ key, label, length }) => (
-              <div className={`form-field ${key === 'idNumber' ? 'full-field' : ''}`} key={key}>
+              <div className="form-field" key={key}>
                 <label htmlFor={`report-${key}`}>{label}</label>
                 <input id={`report-${key}`} name={key} maxLength={length} value={draft[key]} onChange={(event) => update(key, event.target.value)} required {...fieldState(key)} />
                 {error(key)}
@@ -232,7 +221,7 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
 
       <div className="form-actions">
         {step > 0 && <button type="button" className="button button-outline" disabled={sending} onClick={() => goTo(step - 1)}><ArrowLeft size={17} /> Kthehu</button>}
-        <button className="button button-primary next-button" type="submit" disabled={sending || (step === 3 && !available)}>
+        <button className="button button-primary next-button" type="submit" disabled={sending}>
           {step === 3 ? <>{sending ? 'Duke dërguar…' : 'Dërgo raportin'} <Send size={17} /></> : <>Vazhdo <ArrowRight size={17} /></>}
         </button>
       </div>

@@ -150,7 +150,7 @@ export default function App() {
             </div>
             <div className="hero-visual" aria-hidden="true">
               <span className="hero-orbit orbit-one" /><span className="hero-orbit orbit-two" />
-              <img src={asset('safeschool-hero.png')} alt="" width="1448" height="1086" fetchPriority="high" />
+              <img src={asset('safeschool-hero-illustration.png')} alt="" width="1448" height="1086" fetchPriority="high" />
             </div>
           </div>
         </section>

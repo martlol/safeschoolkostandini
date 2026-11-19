@@ -16,12 +16,11 @@ export const identityFields = [
   { key: 'lastName', label: 'Mbiemri', length: 80 },
   { key: 'className', label: 'Klasa', length: 40 },
   { key: 'teacher', label: 'Mësuesi/ja kujdestar/e', length: 120 },
-  { key: 'idNumber', label: 'Nr. i kartës së identitetit', length: 32 },
 ] as const
 
 export const blankReport = {
   category: '', description: '', date: '', place: '', repeated: '',
-  firstName: '', lastName: '', className: '', teacher: '', idNumber: '',
+  firstName: '', lastName: '', className: '', teacher: '',
 }
 
 export type ReportDraft = typeof blankReport

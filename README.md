@@ -14,7 +14,7 @@ npm run build
 
 ## Rrjedha e raportimit
 
-Emri, mbiemri, klasa, mësuesi/ja kujdestar/e dhe numri i kartës së identitetit janë të detyrueshëm. SafeSchool e mban draftin në kujtesën e faqes derisa Google Apps Script të konfirmojë dërgimin. Apps Script mban përkohësisht vetëm identifikues dhe gjendje teknike për të parandaluar email-et e dyfishta pas riprovimit. Raporti dërgohet në adresën e shërbimit psikosocial.
+Emri, mbiemri, klasa dhe mësuesi/ja kujdestar/e janë të detyrueshëm. SafeSchool e mban draftin në kujtesën e faqes derisa Google Apps Script të konfirmojë dërgimin. Apps Script mban përkohësisht vetëm identifikues dhe gjendje teknike për të parandaluar email-et e dyfishta pas riprovimit. Raporti dërgohet në adresën e shërbimit psikosocial.
 
 ## Aktivizimi i dërgimit me Google Apps Script
 
