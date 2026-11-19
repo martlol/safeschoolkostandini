@@ -4,3 +4,4 @@ dist/
 *.local
 *.log
 *.site.tar.gz
+functions/packages/api/reports/bundle.js

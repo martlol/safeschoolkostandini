@@ -2,7 +2,7 @@ import {
   BookOpen, Eye, FilePenLine, HandHeart, HeartHandshake, Laptop, LockKeyhole,
   MessageCircle, MessagesSquare, ShieldAlert, ShieldCheck, UserRoundMinus, UsersRound,
 } from 'lucide-react'
-import { categoryLabels } from './report'
+import { categoryLabels } from '../functions/packages/api/reports/report'
 
 export const school = {
   name: 'Gjimnazi Kostandin Kristoforidhi',

@@ -18,6 +18,13 @@ Për komponentin **Static Site**, përdor `npm run build` si komandë ndërtimi,
 
 Për faqen me raportim, përdor komponentin **Web Service** me Node.js 22, `npm run build` si komandë ndërtimi, `npm start` si komandë nisjeje dhe `/` si rrugën publike. Serveri dëgjon në `0.0.0.0` dhe përdor portën `PORT` me vlerën `8080` si parazgjedhje. Vendos `PUBLIC_ORIGIN` me vlerën `${APP_URL}` ose adresën publike HTTPS të faqes, dhe shto variablat për Apps Script të përshkruara më poshtë te variablat e mjedisit gjatë ekzekutimit.
 
+### Raportimi me DigitalOcean Functions
+
+1. Mbaje komponentin **Static Site** në rrugën `/`. Shto një komponent **Functions** nga e njëjta degë e GitHub me `functions` si **Source Directory** dhe `/report-functions` si rrugën e komponentit.
+2. Për komponentin **Functions**, vendos `PUBLIC_ORIGIN` me adresën publike HTTPS të faqes ose `${APP_URL}`. Vendos `APPS_SCRIPT_URL` dhe `APPS_SCRIPT_RELAY_KEY` si variabla të enkriptuara. `functions/project.yml` ua kalon këto variabla funksioneve në kohën e ekzekutimit.
+3. Për komponentin **Static Site**, vendos `VITE_REPORTS_ENDPOINT=/report-functions/api/reports` si variabël në kohën e ndërtimit. Përdor `npm run build` dhe dosjen `dist`.
+4. Pas publikimit, `GET /report-functions/api/reports` duhet të kthejë `{"status":"ready"}` kur konfigurimi i emailit është i pranishëm. Për verifikimin e dërgimit përdor vetëm të dhëna fiktive.
+
 ## Rrjedha e raportimit
 
 Emri, mbiemri, klasa dhe mësuesi/ja kujdestar/e janë të detyrueshëm. SafeSchool e mban draftin në kujtesën e faqes derisa Google Apps Script të konfirmojë dërgimin. Apps Script mban përkohësisht vetëm identifikues dhe gjendje teknike për të parandaluar email-et e dyfishta pas riprovimit. Raporti dërgohet në adresën e shërbimit psikosocial.

@@ -1,0 +1,12 @@
+{
+  "name": "safeschool-reports-function",
+  "private": true,
+  "type": "commonjs",
+  "main": "bundle.js",
+  "scripts": {
+    "build": "esbuild index.mjs --bundle --platform=node --target=node22 --format=cjs --outfile=bundle.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

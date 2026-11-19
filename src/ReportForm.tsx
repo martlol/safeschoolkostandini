@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ArrowLeft, ArrowRight, Check, LockKeyhole, Send, ShieldCheck } from 'lucide-react'
 import { additionalCategories, categories } from './content'
-import { blankReport, identityFields, reportDetails, today } from './report'
-import type { ReportDraft } from './report'
+import { blankReport, identityFields, reportDetails, today } from '../functions/packages/api/reports/report'
+import type { ReportDraft } from '../functions/packages/api/reports/report'
 
 const allCategories = [...categories, ...additionalCategories]
 const steps = ['Kategoria', 'Ngjarja', 'Identiteti', 'Rishikimi']
+const configuredEndpoint = import.meta.env.VITE_REPORTS_ENDPOINT
+const reportEndpoint = /^\/[\w-]+(?:\/[\w-]+)*$/.test(configuredEndpoint ?? '') ? configuredEndpoint : '/api/reports'
 type Field = keyof ReportDraft
 type Errors = Partial<Record<Field, string>>
 
@@ -97,7 +99,7 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
     setDeliveryError('')
     try {
       requestId.current ??= crypto.randomUUID()
-      const response = await fetch('/api/reports', {
+      const response = await fetch(reportEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: requestId.current, report: draft }),

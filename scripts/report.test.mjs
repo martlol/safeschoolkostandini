@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 import { createContext, runInContext } from 'node:vm'
 import worker from '../dist/server/index.js'
+import reportsFunction from '../functions/packages/api/reports/bundle.js'
 
 const origin = 'https://safeschool.example'
 const scriptUrl = 'https://script.google.com/macros/s/test-script/exec'
@@ -30,6 +31,43 @@ test('requires every identity field before forwarding and rejects cross-origin r
   assert.equal((await worker.fetch(request(report, 'https://other.example'), env)).status, 403)
   assert.equal((await worker.fetch(request({ ...report, date: '2025-02-31' }), env)).status, 400)
   assert.deepEqual(await (await worker.fetch(request(), {})).json(), { status: 'unavailable' })
+})
+
+test('the DigitalOcean function validates and forwards raw browser requests', async (t) => {
+  const config = { ...env, PUBLIC_ORIGIN: origin }
+  const previous = Object.fromEntries(Object.keys(config).map((key) => [key, process.env[key]]))
+  Object.assign(process.env, config)
+  t.after(() => {
+    for (const [key, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[key]
+      else process.env[key] = value
+    }
+  })
+
+  let forwarded = 0
+  t.mock.method(globalThis, 'fetch', async (url, init) => {
+    assert.equal(url, scriptUrl)
+    const data = JSON.parse(init.body)
+    assert.equal(data.id, id)
+    assert.match(data.message, /Emër prove/)
+    forwarded++
+    return Response.json({ status: 'sent' })
+  })
+
+  const makeEvent = (source, fields = report) => ({
+    http: {
+      method: 'POST', headers: { origin: source, 'content-type': 'application/json' },
+      isBase64Encoded: true, body: Buffer.from(JSON.stringify({ id, report: fields })).toString('base64'),
+    },
+  })
+  assert.equal((await reportsFunction.main({ http: { method: 'GET' } })).statusCode, 200)
+  assert.equal((await reportsFunction.main(makeEvent('https://other.example'))).statusCode, 403)
+  assert.equal((await reportsFunction.main(makeEvent(origin, { ...report, teacher: '' }))).statusCode, 400)
+  assert.equal(forwarded, 0)
+  const result = await reportsFunction.main(makeEvent(origin))
+  assert.equal(result.statusCode, 200)
+  assert.deepEqual(JSON.parse(result.body), { status: 'sent' })
+  assert.equal(forwarded, 1)
 })
 
 test('relays a complete email through Apps Script and returns success once across retries', async (t) => {

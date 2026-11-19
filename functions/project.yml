@@ -1,0 +1,12 @@
+packages:
+  - name: api
+    functions:
+      - name: reports
+        runtime: 'nodejs:22'
+        web: raw
+        limits:
+          timeout: 29000
+        environment:
+          PUBLIC_ORIGIN: '${PUBLIC_ORIGIN}'
+          APPS_SCRIPT_URL: '${APPS_SCRIPT_URL}'
+          APPS_SCRIPT_RELAY_KEY: '${APPS_SCRIPT_RELAY_KEY}'
