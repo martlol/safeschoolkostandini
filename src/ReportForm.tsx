@@ -103,7 +103,8 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
         body: JSON.stringify({ id: requestId.current, report: draft }),
         signal: AbortSignal.timeout(30_000),
       })
-      if (response.status === 404 || response.status === 405) {
+      const isJson = response.headers.get('content-type')?.toLowerCase().startsWith('application/json')
+      if (response.status === 404 || response.status === 405 || (!isJson && response.status < 500)) {
         setDeliveryError(deliveryErrors.unavailable)
         return
       }
