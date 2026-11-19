@@ -11,7 +11,7 @@ const mimeTypes = {
   '.woff2': 'font/woff2',
 }
 
-const client = await build({ configFile: false, build: { write: false } })
+const client = await build({ configFile: false, build: { outDir: 'dist', emptyOutDir: true } })
 const assets = Object.create(null)
 
 function addAsset(name, source) {
@@ -36,9 +36,9 @@ await build({
   }],
   build: {
     ssr: 'server/index.ts',
-    outDir: 'dist',
+    outDir: 'dist/server',
     emptyOutDir: true,
     copyPublicDir: false,
-    rollupOptions: { output: { entryFileNames: 'server/index.js' } },
+    rollupOptions: { output: { entryFileNames: 'index.js' } },
   },
 })

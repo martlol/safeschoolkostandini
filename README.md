@@ -10,7 +10,13 @@ npm run dev
 npm run build
 ```
 
-`npm run dev` hap faqen për zhvillim. `npm run build` kontrollon TypeScript dhe ndërton faqen dhe pikën fundore të raportimit në `dist/server/index.js`. `npm run preview` shërben të dyja në `http://127.0.0.1:4173/`.
+`npm run dev` hap faqen për zhvillim. `npm run build` kontrollon TypeScript dhe krijon `dist/index.html`, skedarët statikë dhe serverin e raportimit në `dist/server/index.js`. `npm run preview` shërben faqen dhe API-n në `http://127.0.0.1:4173/`.
+
+## Publikimi në DigitalOcean App Platform
+
+Për komponentin **Static Site**, përdor `npm run build` si komandë ndërtimi, `dist` si **Output Directory** dhe `/` si rrugën publike. Ky konfigurim shërben faqen. Dërgimi i raporteve kërkon pikën fundore `/api/reports`.
+
+Për faqen me raportim, përdor komponentin **Web Service** me Node.js 22, `npm run build` si komandë ndërtimi, `npm start` si komandë nisjeje dhe `/` si rrugën publike. Serveri dëgjon në `0.0.0.0` dhe përdor portën `PORT` me vlerën `8080` si parazgjedhje. Vendos `PUBLIC_ORIGIN` me vlerën `${APP_URL}` ose adresën publike HTTPS të faqes, dhe shto variablat për Apps Script të përshkruara më poshtë te variablat e mjedisit gjatë ekzekutimit.
 
 ## Rrjedha e raportimit
 

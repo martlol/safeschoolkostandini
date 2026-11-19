@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && node scripts/build.mjs",
-    "preview": "node scripts/preview.mjs",
+    "start": "node scripts/serve.mjs",
+    "preview": "node scripts/serve.mjs --preview",
     "test": "node --test scripts/report.test.mjs"
   },
   "dependencies": {

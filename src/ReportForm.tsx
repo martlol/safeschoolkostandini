@@ -103,6 +103,10 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
         body: JSON.stringify({ id: requestId.current, report: draft }),
         signal: AbortSignal.timeout(30_000),
       })
+      if (response.status === 404 || response.status === 405) {
+        setDeliveryError(deliveryErrors.unavailable)
+        return
+      }
       const result = await response.json()
       if (response.ok && result.status === 'sent') {
         setDraft(blankReport)
