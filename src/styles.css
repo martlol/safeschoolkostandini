@@ -158,6 +158,10 @@ main:focus, h3[tabindex='-1']:focus { outline: none; }
 .sent-card { display: grid; gap: 15px; }
 .sent-card p { line-height: 1.6; color: var(--ink-soft); }
 .sent-card .text-action { justify-self: start; }
+.read-preview { background: var(--page-blue); border: 1px solid #dbe7f2; border-radius: 12px; padding: 14px 16px; }
+.read-preview h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; color: #244766; font-size: .9rem; }
+.read-preview p { font-size: .95rem; }
+.read-countdown { color: var(--navy); font-size: 1.35rem; font-weight: 750; font-variant-numeric: tabular-nums; }
 .delivery-error { background: #fdf1f3; color: #932636; border-radius: 8px; padding: 11px; font-size: .86rem; line-height: 1.5; }
 
 .process-grid { list-style: none; padding: 0; margin-block: 45px 0; text-align: center; position: relative; }

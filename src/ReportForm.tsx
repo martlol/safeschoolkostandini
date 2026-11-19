@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { ArrowLeft, ArrowRight, Check, LockKeyhole, Send, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, LockKeyhole, Send, ShieldCheck, Timer } from 'lucide-react'
 import { additionalCategories, categories } from './content'
 import { blankReport, identityFields, reportDetails, today } from './report'
 import type { ReportDraft } from './report'
 
 const allCategories = [...categories, ...additionalCategories]
 const steps = ['Kategoria', 'Ngjarja', 'Identiteti', 'Rishikimi']
+const READ_PREVIEW_SECONDS = 30
 type Field = keyof ReportDraft
 type Errors = Partial<Record<Field, string>>
 
@@ -33,6 +34,31 @@ function validate(step: number, draft: ReportDraft): Errors {
     }
   }
   return errors
+}
+
+function ReadReceiptPreview() {
+  const [seconds, setSeconds] = useState(READ_PREVIEW_SECONDS)
+
+  useEffect(() => {
+    const deadline = performance.now() + READ_PREVIEW_SECONDS * 1000
+    const timer = window.setInterval(() => {
+      const remaining = Math.max(0, Math.ceil((deadline - performance.now()) / 1000))
+      setSeconds(remaining)
+      if (remaining === 0) window.clearInterval(timer)
+    }, 200)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
+  return (
+    <section className="read-preview" aria-labelledby="read-preview-title">
+      <h4 id="read-preview-title"><Timer size={18} aria-hidden="true" /> Simulim i njoftimit të leximit</h4>
+      {seconds > 0 && <span className="read-countdown" role="timer" aria-labelledby="read-preview-title">00:{String(seconds).padStart(2, '0')}</span>}
+      <div role="status">
+        {seconds === 0 && <p><span className="visually-hidden">Shembull njoftimi. </span>«Shërbimi psikosocial e ka lexuar raportimin tënd.»</p>}
+      </div>
+    </section>
+  )
 }
 
 export default function ReportForm({ selection, notify }: { selection?: { id: string }; notify: (message: string) => void }) {
@@ -135,6 +161,7 @@ export default function ReportForm({ selection, notify }: { selection?: { id: st
         <span className="tile-icon green"><Check size={29} /></span>
         <h3 ref={heading} tabIndex={-1}>Raporti u dërgua.</h3>
         <p>SafeSchool e dërgoi raportin me email te shërbimi psikosocial i shkollës.</p>
+        <ReadReceiptPreview />
         <button type="button" className="text-action" onClick={() => { setSent(false); goTo(0) }}>Raport i ri <ArrowRight size={17} /></button>
       </div>
     )
